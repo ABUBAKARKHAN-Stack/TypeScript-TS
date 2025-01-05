@@ -9,7 +9,7 @@
 
 // Number: TypeScript automatically infers this as a number
 let num: number = 10; // An integer
-let float: number = 3.14; // A floating-point number
+let float: number = 3.14; // A floating-point number,
 console.log(num, float); // output: 10 3.14
 
 // String: TypeScript infers this as a string
@@ -127,3 +127,52 @@ console.log(typeof number); // output: number
 let string: string = 'Hello World'; // Explicitly annotating the variable type
 // Syntax: let variableName: datatype = value;
 console.log(typeof string); // output: string
+
+// UNIONS 
+const union: string | boolean | string[] = true;
+console.log(union);
+
+// Objects
+const personInfo: {
+    firstName: string
+    lastName: string
+    age: number
+    isLoggedIn?: boolean
+} = {
+    firstName: "Abubakar",
+    lastName: "Khan",
+    age: 12,
+    // isLoggedIn: false
+}
+
+// Type Aliasis
+type conversionOfStrIntoNumber = (string1: string, string2: string) => number
+
+const conversion: conversionOfStrIntoNumber = (num1, num2) => {
+    const sumofStr = parseInt(num1) + parseInt(num2)
+    return sumofStr
+}
+const convert = conversion("10", "30")
+console.log(convert);
+
+
+type User = {
+    name: string;
+    age?: number;
+    skills: string[]
+}
+
+const userOne: User = {
+    name: "Abubakar",
+    age: 17,
+    skills: ["MERN", "DOCKER"]
+}
+
+
+function generateError(errorMSG: string, code: number): never {
+    throw {
+        message: errorMSG,
+        code
+    }
+}
+generateError("Error 404 Not Found", 404)
