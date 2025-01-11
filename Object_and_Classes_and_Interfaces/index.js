@@ -52,7 +52,7 @@ class Department {
 }
 const accounting = new Department("Accounting"); //* Creating an instance of the Department class
 accounting.describe(); //* Logs the department name to the console
-//* Now Inheritance with Public and Private Access Modifiers
+//* Now Inheritance with Protected and Private Access Modifiers
 //? What is Inheritance?
 /*
     //* Inheritance is a mechanism where one class acquires the properties and behavior of another class.

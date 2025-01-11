@@ -84,7 +84,7 @@ console.log("Let's Learn Classes...");
 
 //* Define a basic class of departments
 class Department {
-    public name: string; //* Public property to store the department name
+    public name: string; //* Public property to store the department name by default is public if not specified
     constructor(depName: string) {
         this.name = depName;
     }
@@ -96,7 +96,7 @@ class Department {
 const accounting = new Department("Accounting"); //* Creating an instance of the Department class
 accounting.describe(); //* Logs the department name to the console
 
-//* Now Inheritance with Public and Private Access Modifiers
+//* Now Inheritance with Protected and Private Access Modifiers
 //? What is Inheritance?
 /*
     //* Inheritance is a mechanism where one class acquires the properties and behavior of another class.
@@ -130,7 +130,6 @@ class AddEmployee extends Department {
         });
     }
     
-
     //* Method to describe the department
     describeDepartment() {
         console.log(`Employees in ${this.name} Department:`, this.employee);
