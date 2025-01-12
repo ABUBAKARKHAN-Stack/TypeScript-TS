@@ -97,3 +97,5 @@ function getUserDetails(user: unknown): void {
 
 const user1 = JSON.parse(jsonString); //* Parse the JSON string into an object
 getUserDetails(user1); // Output: { id: 1, name: 'Abubakar', email: 'abubakarxd@example.com' }
+
+//TODO: Read more about TypeCasting in TypeScript: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-casting

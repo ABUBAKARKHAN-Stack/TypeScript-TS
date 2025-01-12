@@ -96,3 +96,5 @@ function getStringLength(value: unknown): number {
 
 console.log(getStringLength("Hello TypeScript")); // Output: 16
 //! console.log(getStringLength(42)); // Uncomment to see runtime failure due to incorrect type
+
+//TODO : Read More About TypeAssertion in TypeScript at https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions

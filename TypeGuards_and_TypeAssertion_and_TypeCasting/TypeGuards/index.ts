@@ -140,3 +140,5 @@ console.log(isSuccessResponse({ status: "error", message: "404" })); // output: 
 console.log(
     isSuccessResponse({ status: "success", data: { id: 2, name: "Abubakar" } })
 ); // output: true
+
+//TODO: Read More About TypeGuards in TypeScript. https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
