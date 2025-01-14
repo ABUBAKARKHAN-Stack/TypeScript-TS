@@ -27,74 +27,110 @@ var __assign = (this && this.__assign) || function () {
 };
 console.log("Let's Learn Generics in TypeScript"); // Logs a starting message to the console.
 //* =============================== Generics in TypeScript =============================== //
-//? - Generics allow us to create reusable, type-safe components in TypeScript.
-//? - With Generics, functions, interfaces, and classes can handle different types while ensuring type safety.
+//? Generics allow us to create reusable, type-safe components in TypeScript.
+//? With Generics, functions, interfaces, and classes can handle different types while ensuring type safety.
 //* =============================== Why Use Generics? =============================== //
 //? - Write reusable code that works with multiple types.
 //? - Maintain type safety and reduce runtime errors by enforcing type constraints.
 //* =============================== Generic Function Example =============================== //
-//* This generic function returns the input value without modifying it.
+/**
+ * Returns the input value without modifying it.
+ * @param value - The value of any type to be returned.
+ * @returns The same value passed as input.
+ */
 function identity(value) {
-    return value; // Returns the value as it is.
+    return value;
 }
 console.log(identity("HELLO")); // Calls the function with a string value.
 console.log(identity(100)); // Explicitly specifies the type as `number` and passes 100.
 //* =============================== Wrap Value in an Array =============================== //
-//* A generic function that wraps any value inside an array.
+/**
+ * Wraps a given value inside an array.
+ * @param value - The value to be wrapped in an array.
+ * @returns An array containing the value.
+ */
 function wrapInArray(value) {
-    return [value]; // Returns an array containing the value.
+    return [value];
 }
 console.log(wrapInArray(34)); // Wraps a number in an array, output: [34].
 console.log(wrapInArray("Hello")); // Wraps a string in an array, output: ["Hello"].
 var obj1 = { content: "Hello" }; // A `Box` containing a string value.
 var obj2 = { content: 3 }; // A `Box` containing a number value.
 //* =============================== Generic Function with Constraints =============================== //
-//* A generic function that accepts only objects with a `length` property.
+/**
+ * Returns the length of an object if it has a `length` property.
+ * @param value - An object with a `length` property.
+ * @returns The length of the input object.
+ */
 function getLength(value) {
-    return value.length; // Returns the length of the input object.
+    return value.length;
 }
 console.log(getLength({ length: 10 })); // Valid because the object has a `length` property.
 // console.log(getLength(3)); // Error: `number` doesn't have a `length` property.
 //* =============================== Default Generic Types =============================== //
-//* A generic function with a default type `number`.
+/**
+ * Returns the input value with an optional default type of `number`.
+ * @param value - The value to be returned.
+ * @template T - The type of the input value (defaults to `number`).
+ * @returns The same value passed as input.
+ */
 function defaultTo(value) {
-    return value; // Returns the input value without modification.
+    return value;
 }
 console.log(defaultTo(40)); // Uses the default `number` type.
 console.log(defaultTo("Hello Generics!")); // Works with explicitly specified `string` type.
 //* =============================== Merge Two Objects =============================== //
-//* A generic function that combines two objects into one.
+/**
+ * Combines two objects into one.
+ * @param obj1 - The first object.
+ * @param obj2 - The second object.
+ * @template T - The type of the first object.
+ * @template U - The type of the second object.
+ * @returns A new object combining the properties of `obj1` and `obj2`.
+ */
 function merge(obj1, obj2) {
-    return __assign(__assign({}, obj1), obj2); // Uses the spread operator to merge objects.
+    return __assign(__assign({}, obj1), obj2);
 }
 console.log(merge({ name: "Abubakar" }, { Age: 16 })); // Combines two objects into one.
+/**
+ * A generic class to manage a collection of items.
+ * @template U - A type that extends the `Item` interface.
+ */
 var DataStore = /** @class */ (function () {
     function DataStore() {
         this.data = []; // An array to store items of type `U`.
     }
-    //* Adds an item to the store.
+    /**
+     * Adds an item to the store.
+     * @param item - The item to be added.
+     * @returns The updated number of items in the store.
+     */
     DataStore.prototype.add = function (item) {
-        return this.data.push(item); // Adds the item and returns the updated array length.
+        return this.data.push(item);
     };
-    //* Removes an item from the store.
+    /**
+     * Removes an item from the store.
+     * @param item - The item to be removed.
+     * @returns The updated array without the removed item, or `false` if the item is not found.
+     */
     DataStore.prototype.remove = function (item) {
-        var searchedItem = this.data.find(// Searches for the item in the array.
-        function (findItem) { return JSON.stringify(findItem) === JSON.stringify(item); } // Compares JSON strings for equality.
-        );
-        if (!searchedItem) { // If the item is not found, log a message and return false.
+        var searchedItem = this.data.find(function (findItem) { return JSON.stringify(findItem) === JSON.stringify(item); });
+        if (!searchedItem) {
             console.log("Item does not exist in this store.");
             return false;
         }
-        var dataAfterRemove = this.data.filter(// Filters out the item to remove.
-        function (eachItem) {
+        var dataAfterRemove = this.data.filter(function (eachItem) {
             return eachItem.type !== item.type ||
                 eachItem.size !== item.size ||
                 eachItem.price !== item.price;
         });
-        console.log("Item Removed"); // Logs the successful removal of the item.
-        return dataAfterRemove; // Returns the updated array after removal.
+        console.log("Item Removed");
+        return dataAfterRemove;
     };
-    //* Retrieves all items from the store.
+    /**
+     * Retrieves all items from the store.
+     * @returns The array of items in the store.
+     */
     DataStore.prototype.getItems = function () {
         return this.data;
     };
@@ -106,12 +142,19 @@ Clothes.add({ type: "Shoes", size: "7", price: 9999 }); // Adds Shoes to the sto
 Clothes.remove({ type: "T-shirt", size: "XL", price: 999 }); // Removes the T-shirt from the store.
 console.log(Clothes.getItems()); // Logs the remaining items in the store.
 //* =============================== Get Object Property =============================== //
-//* A generic function to retrieve a property value from an object by its key.
+/**
+ * Retrieves a property value from an object by its key.
+ * @param obj - The object to retrieve the property from.
+ * @param key - The key of the property to retrieve.
+ * @template T - The type of the object.
+ * @template K - The type of the key (must be a key of `T`).
+ * @returns The value of the specified property or "Invalid Key" if not found.
+ */
 function getProperty(obj, key) {
-    if (key in obj) { // Checks if the key exists in the object.
-        return obj[key]; // Returns the value associated with the key.
+    if (key in obj) {
+        return obj[key];
     }
-    return "Invalid Key"; // Returns an error message if the key doesn't exist.
+    return "Invalid Key";
 }
 console.log(getProperty({ name: "Abubakar", Age: 10 }, "name")); // Logs the value for key "name".
 console.log(getProperty({ name: "Abubakar", Age: 10 }, "Age")); // Logs the value for key "Age".
@@ -120,25 +163,36 @@ var obj3 = {
 };
 console.log(obj3); // Logs the nested wrapper structure.
 //* =============================== Partial Clone =============================== //
-//* A generic function that returns a partial clone of an object using TypeScript’s `Partial` utility type.
+/**
+ * Returns a partial clone of an object using TypeScript’s `Partial` utility type.
+ * @param obj - The object to be cloned.
+ * @template T - The type of the object.
+ * @returns A partial clone of the object.
+ */
 function partialClone(obj) {
-    return obj; // Returns the partial clone of the object.
+    return obj;
 }
 console.log(partialClone({ name: "Abubakar", age: 17 })); // Logs the partial clone of the object.
 //* =============================== BaseResponse with Extension =============================== //
-//* A base class `BaseResponse<T>` for handling generic data with status codes.
-//* An extended class `ErrorResponse` adds an error message property.
+/**
+ * A base class for handling generic data with status codes.
+ * @template T - The type of the data property.
+ */
 var BaseResponse = /** @class */ (function () {
     function BaseResponse(data, status) {
         this.data = data;
         this.status = status;
-    } // Stores data and status.
+    }
     return BaseResponse;
 }());
+/**
+ * An extended class for error responses, adding an error message property.
+ * @template T - The type of the data and error message properties.
+ */
 var ErrorResponse = /** @class */ (function (_super) {
     __extends(ErrorResponse, _super);
     function ErrorResponse(data, status, errorMessage) {
-        var _this = _super.call(this, data, status) || this; // Calls the base class constructor.
+        var _this = _super.call(this, data, status) || this;
         _this.errorMessage = errorMessage;
         return _this;
     }
@@ -146,8 +200,14 @@ var ErrorResponse = /** @class */ (function (_super) {
 }(BaseResponse));
 var ErrorMessage = new ErrorResponse("Invalid Data", 404, "Error 404 Not Found"); // Creates an error response object.
 console.log(ErrorMessage); // Logs the error response object.
+/**
+ * Determines if the input is an array.
+ * @param isArray - The value to be checked.
+ * @template T - The type of the input.
+ * @returns `true` if the input is an array, otherwise `false`.
+ */
 function typeFunction(isArray) {
-    return (Array.isArray(isArray) ? true : false); // Returns true or false based on the check.
+    return (Array.isArray(isArray) ? true : false);
 }
 console.log(typeFunction(5)); // Logs false since `5` is not an array.
 console.log(typeFunction([6, 4])); // Logs true since `[6, 4]` is an array.
